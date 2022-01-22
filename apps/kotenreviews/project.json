@@ -1,0 +1,74 @@
+{
+  "root": "apps/kotenreviews",
+  "sourceRoot": "apps/kotenreviews/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/web:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "compiler": "babel",
+        "outputPath": "dist/apps/kotenreviews",
+        "index": "apps/kotenreviews/src/index.html",
+        "baseHref": "/",
+        "main": "apps/kotenreviews/src/main.tsx",
+        "polyfills": "apps/kotenreviews/src/polyfills.ts",
+        "tsConfig": "apps/kotenreviews/tsconfig.app.json",
+        "assets": [
+          "apps/kotenreviews/src/favicon.ico",
+          "apps/kotenreviews/src/assets"
+        ],
+        "styles": ["apps/kotenreviews/src/styles.scss"],
+        "scripts": [],
+        "webpackConfig": "@nrwl/react/plugins/webpack"
+      },
+      "configurations": {
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/kotenreviews/src/environments/environment.ts",
+              "with": "apps/kotenreviews/src/environments/environment.prod.ts"
+            }
+          ],
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/web:dev-server",
+      "options": {
+        "buildTarget": "kotenreviews:build",
+        "hmr": true,
+        "proxyConfig": "apps/kotenreviews/proxy.conf.json"
+      },
+      "configurations": {
+        "production": {
+          "buildTarget": "kotenreviews:build:production",
+          "hmr": false
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/kotenreviews/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/kotenreviews"],
+      "options": {
+        "jestConfig": "apps/kotenreviews/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}
