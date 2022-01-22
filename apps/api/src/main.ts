@@ -1,16 +1,15 @@
-import * as express from 'express';
-import { Message } from '@kotenreviews/api-interfaces';
+import * as express from "express";
 
 const app = express();
 
-const greeting: Message = { message: 'Welcome to api!' };
+const greeting = { message: "Welcome to api!" };
 
-app.get('/api', (req, res) => {
+app.get("/api", (_req, res) => {
   res.send(greeting);
 });
 
-const port = process.env.port || 3333;
+const port = process.env.PORT || 3333;
 const server = app.listen(port, () => {
-  console.log('Listening at http://localhost:' + port + '/api');
+  console.log("Listening at http://localhost:" + port + "/api");
 });
-server.on('error', console.error);
+server.on("error", console.error);

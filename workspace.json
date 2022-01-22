@@ -2,8 +2,9 @@
   "version": 2,
   "projects": {
     "api": "apps/api",
-    "api-interfaces": "libs/api-interfaces",
     "kotenreviews": "apps/kotenreviews",
-    "kotenreviews-e2e": "apps/kotenreviews-e2e"
+    "kotenreviews-e2e": "apps/kotenreviews-e2e",
+    "theme": "libs/theme",
+    "types": "libs/types"
   }
 }

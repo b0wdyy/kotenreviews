@@ -1,64 +1,37 @@
 {
   "root": "apps/kotenreviews",
-  "sourceRoot": "apps/kotenreviews/src",
+  "sourceRoot": "apps/kotenreviews",
   "projectType": "application",
   "targets": {
     "build": {
-      "executor": "@nrwl/web:webpack",
+      "executor": "@nrwl/next:build",
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
-        "compiler": "babel",
-        "outputPath": "dist/apps/kotenreviews",
-        "index": "apps/kotenreviews/src/index.html",
-        "baseHref": "/",
-        "main": "apps/kotenreviews/src/main.tsx",
-        "polyfills": "apps/kotenreviews/src/polyfills.ts",
-        "tsConfig": "apps/kotenreviews/tsconfig.app.json",
-        "assets": [
-          "apps/kotenreviews/src/favicon.ico",
-          "apps/kotenreviews/src/assets"
-        ],
-        "styles": ["apps/kotenreviews/src/styles.scss"],
-        "scripts": [],
-        "webpackConfig": "@nrwl/react/plugins/webpack"
+        "root": "apps/kotenreviews",
+        "outputPath": "dist/apps/kotenreviews"
       },
       "configurations": {
-        "production": {
-          "fileReplacements": [
-            {
-              "replace": "apps/kotenreviews/src/environments/environment.ts",
-              "with": "apps/kotenreviews/src/environments/environment.prod.ts"
-            }
-          ],
-          "optimization": true,
-          "outputHashing": "all",
-          "sourceMap": false,
-          "namedChunks": false,
-          "extractLicenses": true,
-          "vendorChunk": false
-        }
+        "production": {}
       }
     },
     "serve": {
-      "executor": "@nrwl/web:dev-server",
+      "executor": "@nrwl/next:server",
       "options": {
         "buildTarget": "kotenreviews:build",
-        "hmr": true,
-        "proxyConfig": "apps/kotenreviews/proxy.conf.json"
+        "dev": true
       },
       "configurations": {
         "production": {
           "buildTarget": "kotenreviews:build:production",
-          "hmr": false
+          "dev": false
         }
       }
     },
-    "lint": {
-      "executor": "@nrwl/linter:eslint",
-      "outputs": ["{options.outputFile}"],
+    "export": {
+      "executor": "@nrwl/next:export",
       "options": {
-        "lintFilePatterns": ["apps/kotenreviews/**/*.{ts,tsx,js,jsx}"]
+        "buildTarget": "kotenreviews:build:production"
       }
     },
     "test": {
@@ -67,6 +40,13 @@
       "options": {
         "jestConfig": "apps/kotenreviews/jest.config.js",
         "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/kotenreviews/**/*.{ts,tsx,js,jsx}"]
       }
     }
   },
