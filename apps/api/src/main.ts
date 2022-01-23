@@ -1,15 +1,20 @@
 import * as express from "express";
+import "dotenv/config";
+import { PrismaClient } from "@prisma/client";
+import reviews from "./routes/reviews";
+import users from "./routes/users";
 
 const app = express();
+export const prisma = new PrismaClient();
+const PORT = process.env.PORT || 3000;
 
-const greeting = { message: "Welcome to api!" };
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
-app.get("/api", (_req, res) => {
-  res.send(greeting);
-});
+app.use("/api/reviews", reviews);
+app.use("/api/users", users);
 
-const port = process.env.PORT || 3333;
-const server = app.listen(port, () => {
-  console.log("Listening at http://localhost:" + port + "/api");
+const server = app.listen(PORT, () => {
+  console.log(`Listening at http://localhost:${PORT}/api`);
 });
 server.on("error", console.error);

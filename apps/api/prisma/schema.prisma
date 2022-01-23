@@ -1,0 +1,46 @@
+generator client {
+  provider = "prisma-client-js"
+  previewFeatures = ["mongoDb"]
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id          String @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  email       String @unique
+  first_name  String
+  last_name   String
+  password    String
+  reviews     Review[]
+  created_at  DateTime
+}
+
+model Review {
+  id          String @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  text        String
+  rating      Float
+  user        User @relation(fields: [user_id], references: [id])
+  user_id     String @db.ObjectId
+  created_at  DateTime
+}
+
+model Kot {
+  id          String @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  bio         String
+  address     Address?
+}
+
+model Address {
+  id            String @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  kot_id        String @db.ObjectId
+  kot           Kot @relation(fields: [kot_id], references: [id])
+  street        String
+  street_number String
+  postal_code   String
+  city          String
+  country       String
+  created_at    DateTime
+}
